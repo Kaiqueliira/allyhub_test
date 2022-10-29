@@ -1,0 +1,105 @@
+.container {
+  max-width: 900px;
+  width: 100%;
+  background-color: #fff;
+  padding: 1.5rem 1.8rem;
+  border-radius: 0.3rem;
+}
+.container h2 {
+  font-size: 1.5625rem;
+  font-weight: 500;
+  position: relative;
+  margin-bottom: 1rem;
+  color: #0093e9;
+}
+.container h2::before {
+  content: "";
+  height: 0.1875rem;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.125rem;
+  background: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+}
+.container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container form .content {
+  display: flex;
+  flex-wrap: wrap;
+}
+.container form .user-details,
+.container form .destination {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0 2rem;
+}
+.container form .user-details {
+  border-right: 2px solid #a3bded;
+}
+.container form label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.3125rem;
+  color: #0093e9;
+}
+form .user-details .input-box {
+  width: calc(100% / 2 - 20px);
+  margin: 0.6rem 0;
+}
+
+.user-details .input-box input {
+  height: 2.8125rem;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding-left: 1rem;
+  font-size: 1rem;
+  border-bottom-width: 0.125rem;
+  transition: all 0.4s ease;
+  color: #a3bded;
+}
+.user-details .input-box input:focus,
+.user-details .input-box input:valid {
+  border-color: #0093e9;
+}
+
+.destination .input-box {
+  width: 300px;
+  margin: 0.6rem 0;
+}
+.destination .select-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 0.8rem;
+  border-radius: 0.3125rem;
+  border-bottom-width: 0.125rem;
+  font-size: 0.8rem;
+  background-color: #dee7f7;
+  color: #0093e9;
+}
+.destination .select-input:focus,
+.destination .select-input:valid {
+  border-color: #0093e9;
+}
+
+.submit {
+  margin-top: 1rem;
+  width: calc(100% - 2.8rem);
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: #6991c7;
+  cursor: pointer;
+  color: #fff;
+}
+.submit:hover {
+  background-color: #a3bded;
+}
