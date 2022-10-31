@@ -1,8 +1,8 @@
-import { ErrorMessage, Formik } from "formik";
+import { Formik } from "formik";
 import { useEffect, useState } from "react";
+import ReactInputMask from "react-input-mask";
 import * as Yup from "yup";
-import { phoneNumber } from "../../utils/validations";
-
+import { cpfValidate, phoneNumber } from "../../utils/validations";
 import "./styles.css";
 
 export default function Form() {
@@ -22,13 +22,15 @@ export default function Form() {
   const validations = Yup.object().shape({
     name: Yup.string().required("O nome é obrigatório!"),
     email: Yup.string()
-      .email("Digite um Email Válido")
+      .email("Digite um Email Válido ex: john@example.com")
       .required("O Email é obrigatório!"),
-    cpf: Yup.string().required("O CPF é obrigatório!"),
+    cpf: Yup.string()
+      .matches(cpfValidate, "CPF Inválido.")
+      .required("O CPF é obrigatório!"),
     country: Yup.string().required("O País é obrigatório!"),
     city: Yup.string().required("A Cidade é obrigatório!"),
     phone: Yup.string()
-      .matches(phoneNumber, "Digita um numero correto")
+      .matches(phoneNumber, "Telefone Inválido!")
       .required("O Telefone é obrigatório!"),
   });
 
@@ -46,7 +48,7 @@ export default function Form() {
         onSubmit={(values) => {
           alert(JSON.stringify(values, null, 2));
         }}
-        validationSchema={validations}
+        validationSchema={() => validations}
       >
         {(props) => (
           <form onSubmit={props.handleSubmit}>
@@ -57,7 +59,7 @@ export default function Form() {
                   <label htmlFor="name">NOME</label>
                   <input
                     type="text"
-                    placeholder="John Doe"
+                    placeholder="Ex: Jonh Doe"
                     id="name"
                     onChange={props.handleChange}
                     value={props.values.name}
@@ -70,7 +72,7 @@ export default function Form() {
                   <label htmlFor="email">EMAIL</label>
                   <input
                     type="email"
-                    placeholder="Fulano@fulano.com"
+                    placeholder="Ex: Fulano@fulano.com"
                     id="email"
                     onChange={props.handleChange}
                     value={props.values.email}
@@ -82,11 +84,13 @@ export default function Form() {
 
                 <div className="input-box">
                   <label htmlFor="phone">TELEFONE</label>
-                  <input
-                    type="text"
-                    placeholder="(82) 9XXXX-XXXX"
-                    id="phone"
+                  <ReactInputMask
+                    id="telefone"
+                    name="phone"
+                    mask="(99) 99999-9999"
+                    placeholder="Ex: (82) 9XXXX-XXXX"
                     onChange={props.handleChange}
+                    onBlur={props.handleBlur}
                     value={props.values.phone}
                   />
                   {props.errors.phone && (
@@ -95,13 +99,16 @@ export default function Form() {
                 </div>
                 <div className="input-box">
                   <label htmlFor="cpf">CPF</label>
-                  <input
-                    type="text"
-                    placeholder="000.000.000-00"
+                  <ReactInputMask
                     id="cpf"
+                    name="cpf"
+                    placeholder="Ex: 000.000.000-00"
+                    mask="999.999.999-99"
                     onChange={props.handleChange}
+                    onBlur={props.handleBlur}
                     value={props.values.cpf}
                   />
+
                   {props.errors.cpf && (
                     <div id="feedback">{props.errors.cpf}</div>
                   )}
@@ -149,6 +156,7 @@ export default function Form() {
                 </div>
               </div>
             </div>
+
             <button type="submit" className="submit">
               Enviar
             </button>
